@@ -25,7 +25,8 @@ typedef struct  s_complex
 typedef enum    e_fractaltype
 {
     MANDELBROT = 0,
-    FRACTAL_TOTAL = 1,
+	JULIA = 1,
+    FRACTAL_TOTAL = 2,
 }               t_fractaltype;
 
 typedef size_t	(*t_checker)(t_complex);
@@ -39,6 +40,7 @@ typedef struct		s_colordepth
 
 typedef struct		s_fractal
 {
+	t_fractaltype	type;
 	GLuint64		scale;
 	t_checker		checker;
 	size_t			iterations;
@@ -46,27 +48,25 @@ typedef struct		s_fractal
 	GLint64			y_0;
 	GLint64			x_pos;
 	GLint64			y_pos;
-	bool			is_keypressed;				
-	t_fractaltype	ftype;
+	bool			is_keypressed;
 	uint16_t		height;
 	uint16_t		width;
-	// GLuint			*pixels_addr;
-	// GLuint			**pixels_array;
 }					t_fractal;
 
-typedef struct	s_fractalarray
+typedef struct		s_fractalarray
 {
 	GLuint			*pixels_addr;
 	GLuint			**pixels_array;
-}				t_fractalaaray;
+}					t_fractalaaray;
 
 void    set_colors();
 
 typedef uint32_t t_color;
 
-extern t_fractal	*g_f;
-extern t_colordepth	g_colordepth;
+extern t_fractal		*g_f;
+extern t_colordepth		g_colordepth;
 extern t_fractalaaray	*g_fractalarray;
+extern t_complex		g_julia_arg;
 
 // typedef struct      s_environment
 // {
@@ -96,6 +96,7 @@ void		*fill_fractal_array(void *r);
 void		draw(void);
 void		reshape(int w, int h);
 void		motion(int x, int y);
+void		passive_motion(int x, int y);
 void		mouse(int button, int state, int x, int y);
 
 t_retcode	init_gl(int argc, char** argv);
@@ -107,5 +108,6 @@ t_retcode	init_fractal(const t_fractaltype ftype,
 t_retcode   delete_fractal(t_fractal *f);
 
 size_t		in_mandelbrot(t_complex c);
+size_t		in_julia(t_complex z);
 
 #endif

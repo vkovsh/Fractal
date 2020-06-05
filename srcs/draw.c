@@ -33,13 +33,13 @@ void    set_colors()
     srand(time(0));
     for (int i = 0; i < 1000; ++i)
     {
-        colors[i] = set_color(gradient_pow(i, g_colordepth.depth_r),
-										gradient_pow(i, g_colordepth.depth_g),
-										gradient_pow(i, g_colordepth.depth_b));
-        // colors[i] = rand() % 256;
-        // colors[i] |= (rand() % 256) << 8;
-        // colors[i] |= (rand() % 256) << 16;
-        // colors[i] |= 0xff000000;
+        // colors[i] = set_color(gradient_pow(i, g_colordepth.depth_r),
+										// gradient_pow(i, g_colordepth.depth_g),
+										// gradient_pow(i, g_colordepth.depth_b));
+        colors[i] = rand() % 256;
+        colors[i] |= (rand() % 256) << 8;
+        colors[i] |= (rand() % 256) << 16;
+        colors[i] |= 0xff000000;
     }
 }
 
@@ -52,43 +52,31 @@ void    *fill_fractal_array(void *r)
             
     c.im = (double)((-g_f->height) / 2 + g_f->y_0) / g_f->scale;
     double delta = (double)1 / g_f->scale;
-    // printf("[%f]\n", delta);
-    // for (int i = 0; i < g_f->height; ++i)
+    double c_re_init = (double)((-g_f->width) / 2 - g_f->x_0 + _r->x_0) / g_f->scale; 
     for (int i = _r->y_0; i < _r->y_end; ++i)
     {
         c.im += delta;
-        c.re = (double)((-g_f->width) / 2 - g_f->x_0 + _r->x_0) / g_f->scale;;
-        // for (int j = 0; j < g_f->width; ++j)
+        c.re = c_re_init;
         for (int j = _r->x_0; j < _r->x_end; ++j)
         {
-            // printf("{i=%d, j=%d}\n", i, j);
             c.re += delta;
             size_t iterations = g_f->checker(c);
             if (iterations != g_f->iterations)
 			{
-                // printf("%zu\n", iterations);
-                // g_f->pixels_array[i][j] = colors[iterations];
-                g_fractalarray->pixels_array[i][j] = colors[iterations]; //set_color(gradient_pow(iterations, g_f->depth_r),
-										///gradient_pow(iterations, g_f->depth_g),
-										//gradient_pow(iterations, g_f->depth_b));
+                g_fractalarray->pixels_array[i][j] = colors[iterations];
 			}
 			else
 			{
-                // g_f->pixels_array[i][j] = 0;
                 g_fractalarray->pixels_array[i][j] = 0;
 			}
         }
     }
-    // glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    g_f->x_pos = -g_f->width / 2;
-    g_f->y_pos = -g_f->height / 2;
-    g_f->is_keypressed = false;
     return (NULL);
 }
 
 void    draw(void)
 {
+    fill_fractal();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //Запомнить атрибут
@@ -157,10 +145,10 @@ void    draw(void)
 
 void			fill_fractal(void)
 {
-    printf("%.8x%.8x %.8x%.8x\n", (g_f->x_0 >> 32),
-                                    g_f->x_0,
-                                    (g_f->y_0 >> 32),
-                                    g_f->y_0);
+    // printf("%.8x%.8x %.8x%.8x\n", (g_f->x_0 >> 32),
+                                    // g_f->x_0,
+                                    // (g_f->y_0 >> 32),
+                                    // g_f->y_0);
     const int thread_count = 1;
     glClearColor(0.0, 0.0, 0.0, 0.0);
     pthread_t   pth[thread_count];
@@ -170,6 +158,7 @@ void			fill_fractal(void)
     start = clock();
 	for (int i = 0; i < thread_count; ++i)
     {
+        // r[i] = (t_rectangle){0, g_f->height / thread_count * i, g_f->width, g_f->height / thread_count * (i + 1)};
         r[i] = (t_rectangle){i * g_f->width / thread_count, 0, (i + 1) * g_f->width / thread_count, g_f->height};
 		// printf("rectangle {%d, %d, %d, %d}\n", r.x_0, r.y_0, r.x_end, r.y_end);
         // printf("i = %d\n", i);
@@ -186,4 +175,7 @@ void			fill_fractal(void)
     stop = clock();
     printf("FillTime = %f\n", (double)(stop - start) / CLOCKS_PER_SEC);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    g_f->x_pos = -g_f->width / 2;
+    g_f->y_pos = -g_f->height / 2;
+    g_f->is_keypressed = false;
 }

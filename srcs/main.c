@@ -27,19 +27,20 @@ int main(int argc, char** argv)
         printf("retcode = %d\n", retcode);
         exit(retcode);
     }
-    retcode = init_fractal(MANDELBROT, 768, 1024, 100);
+    retcode = init_fractal(JULIA, 768, 1024, 100);
     if (retcode != RC_SUCSESS)
     {
         printf("retcode = %d\n", retcode);
         exit(retcode);
     }
     set_colors();
-    fill_fractal();
+    // fill_fractal();
     // fill_fractal_array();
 
     glutDisplayFunc(draw);
     glutReshapeFunc(reshape);
     glutMotionFunc(motion);
+    glutPassiveMotionFunc(passive_motion);
     glutMouseFunc(mouse);
     glutMainLoop();
     return 0;

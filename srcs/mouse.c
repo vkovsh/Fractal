@@ -30,9 +30,11 @@ void mouse(int button, int state, int x, int y)
 		    g_f->y_0 -= (double)0.1 * (y - g_f->height / (double)2 - g_f->y_0);
 		    if (g_f->iterations < 500)
                 g_f->iterations += 1;
-            fill_fractal();
-            draw();
-            printf("%.8x%.8x\n", g_f->scale >> 32, g_f->scale);
+            // fill_fractal();
+            glutPostRedisplay();
+            // draw();
+            printf("%f\n", g_f->scale);
+            // printf("%.8x%.8x\n", g_f->scale >> 32, g_f->scale);
         }
         else
         {
@@ -41,8 +43,9 @@ void mouse(int button, int state, int x, int y)
 		    g_f->y_0 += (double)0.1 * (y - g_f->height / (double)2 - g_f->y_0);
 		    if (g_f->iterations > 40)
                 g_f->iterations -= 1;
-            fill_fractal();
-            draw();
+            // fill_fractal();
+            glutPostRedisplay();
+            // draw();
             // printf("%d\n", g_f->scale);
         }
         

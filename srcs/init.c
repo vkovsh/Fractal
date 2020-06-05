@@ -14,7 +14,7 @@ t_retcode    init_fractal(const t_fractaltype ftype,
     }
     
     {
-        g_f->ftype = ftype;
+        g_f->type = ftype;
         g_f->height = height;
         g_f->width = width;
         g_fractalarray->pixels_addr = (GLuint *)malloc(width * height * sizeof(GLuint));
@@ -42,11 +42,19 @@ t_retcode    init_fractal(const t_fractaltype ftype,
     g_f->x_pos = 0;
     g_f->y_pos = 0;
     g_f->iterations = iterations;
-    g_f->checker = &in_mandelbrot;
+    if (g_f->type == MANDELBROT)
+    {
+        g_f->checker = &in_mandelbrot;
+    }
+    else
+    {
+        g_f->checker = &in_julia;
+    }
+    
     g_f->scale = g_f->width / 4;
-    g_colordepth.depth_b = 4;
-    g_colordepth.depth_g = 4;
-    g_colordepth.depth_r = 4;
+    g_colordepth.depth_b = 6;
+    g_colordepth.depth_g = 6;
+    g_colordepth.depth_r = 6;
     return (RC_SUCSESS);
 }
 

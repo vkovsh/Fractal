@@ -11,3 +11,18 @@ void    motion(int x, int y)
         glutPostRedisplay();
     }
 }
+
+void    passive_motion(int x, int y)
+{
+    if (g_f->is_keypressed == false)
+    {
+        if (g_f->type == JULIA)
+        {
+            g_julia_arg.re = (x - g_f->width / 2) / (double)(g_f->width / 2);
+            g_julia_arg.im = (-y + g_f->height / 2) / (double)(g_f->height / 2);
+            // fill_fractal();
+            // draw();
+            glutPostRedisplay();
+        }
+    }
+}
