@@ -8,6 +8,12 @@
 # define MAX_HEIGHT 2048
 # define MAX_WIDTH 2048
 
+typedef struct	s_point2D
+{
+	double		x;
+	double		y;
+}				t_point2D;
+
 typedef struct	s_rectangle
 {
 	int x_0;

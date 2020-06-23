@@ -33,13 +33,13 @@ void    set_colors()
     srand(time(0));
     for (int i = 0; i < 1000; ++i)
     {
-        // colors[i] = set_color(gradient_pow(i, g_colordepth.depth_r),
-										// gradient_pow(i, g_colordepth.depth_g),
-										// gradient_pow(i, g_colordepth.depth_b));
-        colors[i] = rand() % 256;
-        colors[i] |= (rand() % 256) << 8;
-        colors[i] |= (rand() % 256) << 16;
-        colors[i] |= 0xff000000;
+        colors[i] = set_color(gradient_pow(i, g_colordepth.depth_r),
+										gradient_pow(i, g_colordepth.depth_g),
+										gradient_pow(i, g_colordepth.depth_b));
+        // colors[i] = rand() % 256;
+        // colors[i] |= 0;//(rand() % 256) << 8;
+        // colors[i] |= 0;//(rand() % 256) << 16;
+        // colors[i] |= 0xff000000;
     }
 }
 

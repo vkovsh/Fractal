@@ -5,12 +5,59 @@
 t_fractalaaray  *g_fractalarray;
 t_fractal       *g_f;
 
-// const int checkImageWidth = 512;
-// const int checkImageHeight = 512;
-// GLubyte checkImage[1024][512];
+void    draw_pyramid()
+{
+    glClearColor(0, 0, 0, 1);  // (In fact, this is the default.)
+    glClear(GL_COLOR_BUFFER_BIT);
 
-// static int x_pos, y_pos, x_0, y_0;
-// static bool flag;
+    glScalef(0.7f, 0.7f, 0.7f); // scale the pyramid
+    glTranslatef(0, 0, 0); // location of the pyramid
+    glRotatef(0, 1.0f, 0.0f, 0.0f); // rotate the pyramid
+    glRotatef(0, 0.0f, 1.0f, 0.0f); // rotate the pyramid
+    glRotatef(0, 0.0f, 0.0f, 1.0f); // rotate the pyramid
+   
+    glBegin(GL_TRIANGLES);
+    {
+        {
+            glColor3f(1.0f, 0.0f, 0.0f);
+            glVertex3f(0.0f, 1.0f, 0.0f);
+            glColor3f(0.0f, 1.0f, 0.0f);
+            glVertex3f(-1.0f, -1.0f, 1.0f );
+            glColor3f(0.0f, 0.0f, 1.0f);
+            glVertex3f(1.0f, -1.0f, 1.0f);
+        }
+
+        {
+            glColor3f(1.0f, 0.0f, 0.0f);
+            glVertex3f(0.0f, 1.0f, 0.0f);
+            glColor3f(0.0f, 1.0f, 0.0f);
+            glVertex3f(-1.0f, -1.0f, 1.0f);
+            glColor3f(0.0f, 0.0f, 1.0f);
+            glVertex3f(0.0f, -1.0f, -1.0f);
+        }
+
+        {
+            glColor3f(1.0f, 0.0f, 0.0f);
+            glVertex3f(0.0f, 1.0f, 0.0f);
+            glColor3f(0.0f, 1.0f, 0.0f);
+            glVertex3f(0.0f, -1.0f, -1.0f);
+            glColor3f(0.0f, 0.0f, 1.0f);
+            glVertex3f(1.0f, -1.0f, 1.0f);
+        }
+
+        {
+            glColor3f(1.0f, 0.0f, 0.0f);
+            glVertex3f(-1.0f, -1.0f, 1.0f);
+            glColor3f(0.0f, 1.0f, 0.0f );
+            glVertex3f(0.0f, -1.0f, -1.0f);
+            glColor3f(0.0f, 0.0f, 1.0f);
+            glVertex3f(1.0f, -1.0f, 1.0f);
+        }
+    }
+    glEnd();
+
+    glutSwapBuffers();
+}
 
 void            draw_triangle(double x1, double y1,
                             double x2, double y2,
@@ -19,13 +66,13 @@ void            draw_triangle(double x1, double y1,
 {
     glBegin(GL_TRIANGLES);
     {
-        glColor3f(1, 0, 0); // red
+        glColor3f(1.0, 0, 0); // red
         // glVertex2f( -0.8, -0.8 );
         glVertex2f(x1, y1);
-        glColor3f(0, 1, 0); // green
+        glColor3f(0, 1.0, 0); // green
         // glVertex2f( 0.8, -0.8 );
         glVertex2f(x2, y2);
-        glColor3f( 0, 0, 1 ); // blue
+        glColor3f(0, 0, 1.0); // blue
         // glVertex2f( 0, 0.9 );
         glVertex2f(x3, y3);
     }
@@ -68,7 +115,7 @@ void    draw_serp_loop()
     // double main_x3 = 0;
     // double main_y3 = 0.9;
     draw_triangle(-0.8, -0.8, 0.8, -0.8, 0, 0.9, 1, 0, 0);
-    draw_serp(6, -0.8, -0.8, 0.8, -0.8, 0, 0.9, 1, 1, 1);
+    draw_serp(5, -0.8, -0.8, 0.8, -0.8, 0, 0.9, 1, 1, 1);
     // draw_triangle(main_x1, main_y1, main_x2, main_y2, main_x3, main_y3);
 
     // double new_x1 = main_x1 + (main_x2 - main_x1) / 2;
@@ -108,11 +155,11 @@ int main(int argc, char** argv)
     // fill_fractal();
     // fill_fractal_array();
 
-    glutDisplayFunc(draw_serp_loop);
-    // glutReshapeFunc(reshape);
-    // glutMotionFunc(motion);
-    // glutPassiveMotionFunc(passive_motion);
-    // glutMouseFunc(mouse);
+    glutDisplayFunc(draw);
+    glutReshapeFunc(reshape);
+    glutMotionFunc(motion);
+    glutPassiveMotionFunc(passive_motion);
+    glutMouseFunc(mouse);
     glutMainLoop();
     return 0;
 }
