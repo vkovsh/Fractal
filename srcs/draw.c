@@ -50,9 +50,10 @@ void    *fill_fractal_array(void *r)
     t_complex c;
 	t_rectangle *_r = (t_rectangle *)r;
             
-    c.im = (double)((-g_f->height) / 2 + g_f->y_0) / g_f->scale;
-    double delta = (double)1 / g_f->scale;
-    double c_re_init = (double)((-g_f->width) / 2 - g_f->x_0 + _r->x_0) / g_f->scale; 
+    c.im = (long double)((-g_f->height) / 2 + g_f->y_0) / g_f->scale;
+    long double delta = (long double)1 / g_f->scale;
+    printf("delta = %LG\n", delta);
+    long double c_re_init = (long double)((-g_f->width) / 2 - g_f->x_0 + _r->x_0) / g_f->scale; 
     for (int i = _r->y_0; i < _r->y_end; ++i)
     {
         c.im += delta;

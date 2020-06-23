@@ -30,7 +30,7 @@ size_t			in_mandelbrot(t_complex c)
 {
 	t_complex	o;
 	size_t		iter;
-	double		tmp;
+	long double		tmp;
 
 	tmp = c.re - 0.25;
 	if (sqrt(tmp * tmp + c.im * c.im) < 0.5 - 0.5 * cos(atan2(c.im, tmp)))
@@ -41,8 +41,8 @@ size_t			in_mandelbrot(t_complex c)
 	o.im = 0;
 	for (iter = 0; iter < g_f->iterations; ++iter)
 	{
-		double re_aquare = o.re * o.re;
-		double im_square = o.im * o.im;
+		long double re_aquare = o.re * o.re;
+		long double im_square = o.im * o.im;
 		if (re_aquare + im_square > 4)
 		{
 			break ;

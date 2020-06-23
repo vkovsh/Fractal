@@ -25,16 +25,25 @@ void mouse(int button, int state, int x, int y)
         // printf("Scroll %s At %d %d\n", (button == 3) ? "Up" : "Down", x, y);
         if (button == 3)
         {
-            g_f->scale *= 1.1;
-		    g_f->x_0 -= (double)0.1 * (x - g_f->width / (double)2 - g_f->x_0);
-		    g_f->y_0 -= (double)0.1 * (y - g_f->height / (double)2 - g_f->y_0);
-		    if (g_f->iterations < 500)
-                g_f->iterations += 1;
-            // fill_fractal();
-            glutPostRedisplay();
-            // draw();
-            printf("%f\n", g_f->scale);
-            // printf("%.8x%.8x\n", g_f->scale >> 32, g_f->scale);
+            if (g_f->type == MANDELBROT)
+            {
+                g_f->scale *= (long double)1.1;
+		        g_f->x_0 -= (long double)0.1 * (long double)(x - g_f->width / (long double)2 - g_f->x_0);
+		        g_f->y_0 -= (long double)0.1 * (long double)(y - g_f->height / (long double)2 - g_f->y_0);
+		        printf("%LG %LG\n%LG\n", g_f->x_0, g_f->y_0, g_f->scale);
+                if (g_f->iterations < 500)
+                    g_f->iterations += 1;
+                // fill_fractal();
+                glutPostRedisplay();
+                // draw();
+                printf("%f\n", g_f->scale);
+                // printf("%.8x%.8x\n", g_f->scale >> 32, g_f->scale);
+            }
+            else if (g_f->type == JULIA)
+            {
+                g_f->iterations++;
+                glutPostRedisplay();
+            }
         }
         else
         {

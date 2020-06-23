@@ -18,8 +18,8 @@ typedef struct	s_rectangle
 
 typedef struct  s_complex
 {
-    double re;
-    double im;
+    long double re;
+    long double im;
 }               t_complex;
 
 typedef enum    e_fractaltype
@@ -41,13 +41,13 @@ typedef struct		s_colordepth
 typedef struct		s_fractal
 {
 	t_fractaltype	type;
-	GLuint64		scale;
+	long double		scale;
 	t_checker		checker;
-	size_t			iterations;
-	GLint64			x_0;
-	GLint64			y_0;
-	GLint64			x_pos;
-	GLint64			y_pos;
+	uint16_t		iterations;
+	long double		x_0;
+	long double		y_0;
+	int16_t			x_pos;
+	int16_t			y_pos;
 	bool			is_keypressed;
 	uint16_t		height;
 	uint16_t		width;
