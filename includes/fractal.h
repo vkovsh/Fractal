@@ -116,4 +116,6 @@ t_retcode   delete_fractal(t_fractal *f);
 size_t		in_mandelbrot(t_complex c);
 size_t		in_julia(t_complex z);
 
+void    draw_triangle(t_point2D p1, t_point2D p2, t_point2D p3,
+                    GLfloat r, GLfloat g, GLfloat b);
 #endif

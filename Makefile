@@ -20,7 +20,8 @@ SRC_NAME =	main.c			\
 			draw.c			\
 			reshape.c		\
 			motion.c		\
-			mouse.c
+			mouse.c			\
+			triangle.c		\
 
 all: $(NAME)
 

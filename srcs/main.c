@@ -59,26 +59,6 @@ void    draw_pyramid()
     glutSwapBuffers();
 }
 
-void            draw_triangle(double x1, double y1,
-                            double x2, double y2,
-                            double x3, double y3,
-                            GLfloat r, GLfloat g, GLfloat b)
-{
-    glBegin(GL_TRIANGLES);
-    {
-        glColor3f(1.0, 0, 0); // red
-        // glVertex2f( -0.8, -0.8 );
-        glVertex2f(x1, y1);
-        glColor3f(0, 1.0, 0); // green
-        // glVertex2f( 0.8, -0.8 );
-        glVertex2f(x2, y2);
-        glColor3f(0, 0, 1.0); // blue
-        // glVertex2f( 0, 0.9 );
-        glVertex2f(x3, y3);
-    }
-    glEnd(); 
-}
-
 void    draw_serp(int draw_until_null, double main_x1, double main_y1,
                             double main_x2, double main_y2,
                             double main_x3, double main_y3,
@@ -92,7 +72,9 @@ void    draw_serp(int draw_until_null, double main_x1, double main_y1,
     double new_y2 = main_y2 + (main_y3 - main_y2) / 2;
     double new_x3 = main_x1 + (main_x3 - main_x1) / 2;
     double new_y3 = main_y1 + (main_y3 - main_y1) / 2;
-    draw_triangle(new_x1, new_y1, new_x2, new_y2, new_x3, new_y3, r, g, b);
+    draw_triangle((t_point2D){new_x1, new_y1},
+                (t_point2D){new_x2, new_y2},
+                (t_point2D){new_x3, new_y3}, r, g, b);
 
     // draw_serp(draw_until_null - 1, new_x1, new_y1, new_x2, new_y2, new_x3, new_y3, 1, 1, 1);
     draw_serp(draw_until_null - 1, main_x1, main_y1, new_x1, new_y1, new_x3, new_y3, 1, 0, 0);
@@ -114,7 +96,9 @@ void    draw_serp_loop()
     // double main_y2 = -0.8;
     // double main_x3 = 0;
     // double main_y3 = 0.9;
-    draw_triangle(-0.8, -0.8, 0.8, -0.8, 0, 0.9, 1, 0, 0);
+    draw_triangle((t_point2D){-0.8, -0.8},
+                (t_point2D){0.8, -0.8},
+                (t_point2D){0, 0.9}, 1, 0, 0);
     draw_serp(5, -0.8, -0.8, 0.8, -0.8, 0, 0.9, 1, 1, 1);
     // draw_triangle(main_x1, main_y1, main_x2, main_y2, main_x3, main_y3);
 
