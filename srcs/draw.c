@@ -33,13 +33,13 @@ void    set_colors()
     srand(time(0));
     for (int i = 0; i < 1000; ++i)
     {
-        colors[i] = set_color(gradient_pow(i, g_colordepth.depth_r),
-										gradient_pow(i, g_colordepth.depth_g),
-										gradient_pow(i, g_colordepth.depth_b));
-        // colors[i] = rand() % 256;
-        // colors[i] |= 0;//(rand() % 256) << 8;
-        // colors[i] |= 0;//(rand() % 256) << 16;
-        // colors[i] |= 0xff000000;
+        // colors[i] = set_color(gradient_pow(i, g_colordepth.depth_r),
+										// gradient_pow(i, g_colordepth.depth_g),
+										// gradient_pow(i, g_colordepth.depth_b));
+        colors[i] = rand() % 256;
+        colors[i] |= (rand() % 256) << 8;
+        colors[i] |= (rand() % 256) << 16;
+        colors[i] |= 0xff000000;
     }
 }
 
@@ -52,7 +52,7 @@ void    *fill_fractal_array(void *r)
             
     c.im = (long double)((-g_f->height) / 2 + g_f->y_0) / g_f->scale;
     long double delta = (long double)1 / g_f->scale;
-    printf("delta = %LG\n", delta);
+    // printf("delta = %LG\n", delta);
     long double c_re_init = (long double)((-g_f->width) / 2 - g_f->x_0 + _r->x_0) / g_f->scale; 
     for (int i = _r->y_0; i < _r->y_end; ++i)
     {
@@ -130,7 +130,7 @@ void    draw(void)
     
     //Отобразить пикселы на экране
     glDrawPixels(g_f->width - dx, g_f->height - dy, GL_RGBA, GL_UNSIGNED_BYTE, g_fractalarray->pixels_addr);
-    // glDrawPixels(g_f->width - dx, g_f->height - dy, GL_RGBA, GL_UNSIGNED_BYTE, g_f->pixels_addr);
+    
     //Вернуть исходные значения атрибутам вывода
     glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
     glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
@@ -146,10 +146,6 @@ void    draw(void)
 
 void			fill_fractal(void)
 {
-    // printf("%.8x%.8x %.8x%.8x\n", (g_f->x_0 >> 32),
-                                    // g_f->x_0,
-                                    // (g_f->y_0 >> 32),
-                                    // g_f->y_0);
     const int thread_count = 1;
     glClearColor(0.0, 0.0, 0.0, 0.0);
     pthread_t   pth[thread_count];
@@ -159,16 +155,12 @@ void			fill_fractal(void)
     start = clock();
 	for (int i = 0; i < thread_count; ++i)
     {
-        // r[i] = (t_rectangle){0, g_f->height / thread_count * i, g_f->width, g_f->height / thread_count * (i + 1)};
         r[i] = (t_rectangle){i * g_f->width / thread_count, 0, (i + 1) * g_f->width / thread_count, g_f->height};
-		// printf("rectangle {%d, %d, %d, %d}\n", r.x_0, r.y_0, r.x_end, r.y_end);
-        // printf("i = %d\n", i);
-        if (0 != pthread_create(&pth[i], NULL, fill_fractal_array, &r[i]))
+	    if (0 != pthread_create(&pth[i], NULL, fill_fractal_array, &r[i]))
         {
             printf("%d error\n", i);
         }
-        // fill_fractal_array(&r);
-	}
+    }
 	for (int i = 0; i < thread_count; ++i)
     {
     	pthread_join(pth[i], NULL);

@@ -115,20 +115,22 @@ void    draw_serp_loop()
 
 int main(int argc, char** argv)
 {
+    atexit(delete_fractal);
+
     t_fractal       f;
     t_retcode       retcode;
     t_fractalaaray  farray;
     
-    printf("size = %zu\n", sizeof(t_complex));
-    printf("size = %zu\n", sizeof(t_fractal));
     g_f = &f;
     g_fractalarray = &farray;
+    
     retcode = init_gl(argc, argv);
     if (retcode != RC_SUCSESS)
     {
         printf("retcode = %d\n", retcode);
         exit(retcode);
     }
+    
     retcode = init_fractal(MANDELBROT, 768, 1024, 100);
     if (retcode != RC_SUCSESS)
     {
@@ -136,9 +138,7 @@ int main(int argc, char** argv)
         exit(retcode);
     }
     set_colors();
-    // fill_fractal();
-    // fill_fractal_array();
-
+    
     glutDisplayFunc(draw);
     glutReshapeFunc(reshape);
     glutMotionFunc(motion);

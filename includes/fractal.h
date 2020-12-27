@@ -74,27 +74,6 @@ extern t_colordepth		g_colordepth;
 extern t_fractalaaray	*g_fractalarray;
 extern t_complex		g_julia_arg;
 
-// typedef struct      s_environment
-// {
-// 	size_t			height;
-// 	size_t			width;
-// 	t_fractaltype	fractal_type;
-// 	double			z;
-// 	pthread_t		pth;
-// 	int				iter;
-// 	double			x_abs;
-// 	double			y_abs;
-// 	int				animation;
-// 	t_complex		julia_arg;
-// 	int				move;
-// 	int				zoom;
-// 	int				do_iter;
-// 	int				julia_an;
-// 	int				julia_freeze;
-// 	int				do_opacity;
-// 	int				(*checker)(t_complex);
-// }					t_environment;
-
 void		fill_fractal(void);
 
 void		*fill_fractal_array(void *r);
@@ -111,7 +90,7 @@ t_retcode	init_fractal(const t_fractaltype ftype,
             			const GLuint width,
             			const size_t iterations);
 
-t_retcode   delete_fractal(t_fractal *f);
+void    delete_fractal();
 
 size_t		in_mandelbrot(t_complex c);
 size_t		in_julia(t_complex z);

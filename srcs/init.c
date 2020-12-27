@@ -18,22 +18,17 @@ t_retcode    init_fractal(const t_fractaltype ftype,
         g_f->height = height;
         g_f->width = width;
         g_fractalarray->pixels_addr = (GLuint *)malloc(width * height * sizeof(GLuint));
-        // g_f->pixels_addr = (GLuint *)malloc(width * height * sizeof(GLuint));
         if (g_fractalarray->pixels_addr == NULL)
-        // if (g_f->pixels_addr == NULL)
         {
             return (RC_ERR_BAD_MEMALLOC);
         }
         g_fractalarray->pixels_array = (GLuint **)malloc(height * sizeof(GLuint *));
-        // g_f->pixels_array = (GLuint **)malloc(height * sizeof(GLuint *));
         if (g_fractalarray->pixels_array == NULL)
-        // if (g_f->pixels_array == NULL)
         {
             return (RC_ERR_BAD_MEMALLOC);
         }
         for (GLuint i = 0; i < height; ++i)
         {
-            // g_f->pixels_array[i] = g_f->pixels_addr + i * width;
             g_fractalarray->pixels_array[i] = g_fractalarray->pixels_addr + i * width;
         }
     }
@@ -58,12 +53,15 @@ t_retcode    init_fractal(const t_fractaltype ftype,
     return (RC_SUCSESS);
 }
 
+//TODO
 t_retcode   init_gl(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(1024, 768);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Fractal");
+    int g_window_id = glutCreateWindow("Fractal");
+    //glutDestroyWindow(g_window_id);
+    
     return (RC_SUCSESS);   
 }

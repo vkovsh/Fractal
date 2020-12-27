@@ -1,9 +1,8 @@
 #include "fractal.h"
 
-t_retcode   delete_fractal(t_fractal *f)
+void    delete_fractal()
 {
-    (void)f;
-    // free(f->pixels_addr);
-    // free(f->pixels_array);
-    return (RC_SUCSESS);
+    printf("[[Delete]]\n");
+    free(g_fractalarray->pixels_array);
+    free(g_fractalarray->pixels_addr);
 }

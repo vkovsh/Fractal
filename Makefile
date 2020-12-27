@@ -1,12 +1,13 @@
 NAME = fractal
 
 CC = gcc
-CC_FLAGS = -O3 #-Wall -Werror -Wextra
+CC_FLAGS = -g#-O3#-Wall -Werror -Wextra
 
 SRC_PATH = ./srcs/
 INC_PATH = ./includes/
 OBJ_PATH = ./obj/
-LIB_LNK = -lpthread -lGL -lX11 -lm -lXext -lGLEW -lglut -lGLU #-lglfw
+LIB_LNK = -lpthread -lGL -lm -lglut -lGLU
+# LIB_LNK = -lpthread -lGL -lX11 -lm -lXext -lGLEW -lglut -lGLU #-lglfw
 
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I, $(INC_PATH))
